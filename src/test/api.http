@@ -1,0 +1,83 @@
+### 1 - Create a new movie
+
+POST http://localhost:8081/api/movies/create
+Content-Type: application/x-www-form-urlencoded
+
+name=Inception&genre=ACTION&duration=148
+
+> {%
+ client.test("Request executed successfully", function() {
+     client.assert(response.status === 200, "Response status is not 200");
+     client.global.set("movieId", response.body["id"]);
+ });
+ %}
+
+### 2 - Add a projection to the movie
+
+POST http://localhost:8081/api/movies/projections/add
+Content-Type: application/x-www-form-urlencoded
+
+movieId={{movieId}}&date=24/12/2020&time=21:00&numberOfFreeSeats=300&currency=MKD&amount=250
+
+> {%
+ client.test("Request executed successfully", function() {
+     client.assert(response.status === 200, "Response status is not 200");
+     client.global.set("projectionId", response.body["id"]);
+ });
+ %}
+
+### 3 - Create a new user
+
+POST http://localhost:8082/api/users/create
+Content-Type: application/x-www-form-urlencoded
+
+username=LeGenco&password=123456&email=ekostadinov5@gmail.com&firstName=Evgenij&lastName=Kostadinov&gender=MALE&dateOfBirth=04/05/1999
+
+> {%
+ client.test("Request executed successfully", function() {
+     client.assert(response.status === 200, "Response status is not 200");
+     client.global.set("userId", response.body["id"]);
+ });
+ %}
+
+### 4 - Create a new reservation
+
+POST http://localhost:8082/api/users/reservations/create
+Content-Type: application/x-www-form-urlencoded
+
+userId={{userId}}&movieId={{movieId}}&projectionId={{projectionId}}&currency=MKD&amount=250&numberOfSeats=4
+
+> {%
+ client.test("Request executed successfully", function() {
+     client.assert(response.status === 200, "Response status is not 200");
+     client.global.set("reservationId", response.body["id"]);
+ });
+ %}
+
+### 5 - Change the price per seat for the projection
+
+POST http://localhost:8081/api/movies/projections/change-price-per-seat
+Content-Type: application/x-www-form-urlencoded
+
+movieId={{movieId}}&projectionId={{projectionId}}&currency=MKD&amount=200
+
+> {%
+ client.test("Request executed successfully", function() {
+     client.assert(response.status === 200, "Response status is not 200");
+ });
+ %}
+
+### 6 - Cancel the reservation
+
+POST http://localhost:8082/api/users/reservations/cancel
+Content-Type: application/x-www-form-urlencoded
+
+userId={{userId}}&movieId={{movieId}}&reservationId={{reservationId}}
+
+> {%
+ client.test("Request executed successfully", function() {
+     client.assert(response.status === 200, "Response status is not 200");
+ });
+ %}
+
+###

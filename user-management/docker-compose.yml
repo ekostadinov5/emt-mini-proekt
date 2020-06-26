@@ -1,0 +1,13 @@
+version: "3"
+services:
+  user_management:
+    image: postgres
+    container_name: user_management
+    environment:
+      - POSTGRES_USER=evgenij
+      - POSTGRES_PASSWORD=emt123
+      - POSTGRES_DB=user_management
+    ports:
+      - 5432:5432
+    volumes:
+      - C://Users//Evgenij//PostgreSQL//user_management

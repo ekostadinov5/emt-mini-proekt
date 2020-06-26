@@ -1,0 +1,14 @@
+version: "3"
+services:
+  movie_catalog:
+    image: mysql:5.7
+    container_name: movie_catalog
+    environment:
+      MYSQL_DATABASE: movie_catalog
+      MYSQL_USER: evgenij
+      MYSQL_PASSWORD: emt123
+      MYSQL_ROOT_PASSWORD: emt123
+    ports:
+      - 3306:3306
+    volumes:
+      - C://Users//Evgenij//MYSQL//movie_catalog
